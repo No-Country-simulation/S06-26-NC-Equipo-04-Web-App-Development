@@ -1,6 +1,9 @@
 {
   "version": "1",
-  "name": "S26-06-GovTech-API",
+  "name": "bruno-api",
   "type": "collection",
-  "ignore": [".env.json", ".env.*.json"]
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
 }
