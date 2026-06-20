@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "S26-06-GovTech-API",
+  "type": "collection",
+  "ignore": [".env.json", ".env.*.json"]
+}
