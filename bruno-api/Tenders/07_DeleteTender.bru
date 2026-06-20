@@ -1,0 +1,16 @@
+meta {
+  name: Delete Tender
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

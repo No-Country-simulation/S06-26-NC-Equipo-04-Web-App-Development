@@ -1,0 +1,16 @@
+meta {
+  name: Submit Proposal
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/proposals/{{proposalId}}/submit
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Download Document
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/documents/download/{{docId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

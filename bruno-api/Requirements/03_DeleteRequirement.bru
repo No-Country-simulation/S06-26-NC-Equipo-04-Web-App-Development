@@ -1,0 +1,16 @@
+meta {
+  name: Delete Requirement
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/requirements/{{reqId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

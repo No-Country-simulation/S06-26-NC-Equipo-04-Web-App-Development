@@ -1,0 +1,22 @@
+meta {
+  name: Full Onboarding
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/onboarding/full
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "ruc": "{{ruc}}",
+    "dni": "{{dni}}"
+  }
+}
