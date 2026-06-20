@@ -1,0 +1,22 @@
+meta {
+  name: Update Proposal Price
+  type: http
+  seq: 6
+}
+
+patch {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/proposals/{{proposalId}}/price
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "price": 150000.00
+  }
+}

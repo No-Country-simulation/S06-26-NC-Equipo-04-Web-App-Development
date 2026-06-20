@@ -1,0 +1,20 @@
+meta {
+  name: Attach Document to Proposal
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/proposals/{{proposalId}}/documents
+  body: form
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:form {
+  file: @file(./sample.pdf)
+  requirementId: {{reqId}}
+}

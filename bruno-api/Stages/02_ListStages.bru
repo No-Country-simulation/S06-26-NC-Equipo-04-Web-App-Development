@@ -1,0 +1,15 @@
+meta {
+  name: List Stages
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/stages
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

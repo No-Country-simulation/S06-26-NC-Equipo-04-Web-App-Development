@@ -1,0 +1,15 @@
+meta {
+  name: Search Tenders
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/search/tenders?q=licitación&page=1&limit=10
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

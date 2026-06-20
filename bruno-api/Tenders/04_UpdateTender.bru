@@ -1,0 +1,28 @@
+meta {
+  name: Update Tender
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Licitación Actualizada - {{$isoTimestamp}}",
+    "description": "Descripción actualizada de la licitación",
+    "rules": {
+      "weightExperience": 0.5,
+      "weightPrice": 0.5,
+      "maxYearsExperience": 15
+    }
+  }
+}

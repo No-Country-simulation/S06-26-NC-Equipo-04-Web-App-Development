@@ -1,0 +1,32 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "{{email}}",
+    "password": "{{password}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    const data = res.body.data;
+    bru.setVar('token', data.token);
+    bru.setVar('userId', data.user.id);
+    bru.setVar('name', data.user.name);
+    bru.setVar('role', data.user.role);
+  }
+}
