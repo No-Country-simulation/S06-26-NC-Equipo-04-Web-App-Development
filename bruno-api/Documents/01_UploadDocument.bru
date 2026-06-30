@@ -1,0 +1,27 @@
+meta {
+  name: Upload Document
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/documents
+  body: form
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:form {
+  file: @file(./sample.pdf)
+  documentType: BASE
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const data = res.body.data;
+    bru.setVar('docId', data.id);
+  }
+}

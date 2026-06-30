@@ -1,0 +1,22 @@
+meta {
+  name: Set Experience Score
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/experience/{{proposalId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "yearsExperience": 5
+  }
+}

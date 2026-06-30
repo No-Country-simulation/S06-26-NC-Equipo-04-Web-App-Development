@@ -1,0 +1,16 @@
+meta {
+  name: Award Proposal
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/award/{{proposalId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

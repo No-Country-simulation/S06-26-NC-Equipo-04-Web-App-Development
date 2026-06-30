@@ -1,0 +1,22 @@
+meta {
+  name: Disqualify Proposal
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/proposals/{{proposalId}}/disqualify
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "reason": "Documentación incompleta según lo requerido en las bases"
+  }
+}

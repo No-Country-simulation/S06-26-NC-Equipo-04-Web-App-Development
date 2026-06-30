@@ -1,0 +1,30 @@
+meta {
+  name: Login Provider
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "{{providerEmail}}",
+    "password": "{{providerPassword}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    const data = res.body.data;
+    bru.setVar('token', data.token);
+    bru.setVar('userId', data.user.id);
+  }
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Get Audit by Proposal
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/audits/{{proposalId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

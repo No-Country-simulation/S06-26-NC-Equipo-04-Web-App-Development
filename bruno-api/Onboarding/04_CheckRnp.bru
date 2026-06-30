@@ -1,0 +1,21 @@
+meta {
+  name: Check RNP
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/onboarding/check-rnp
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "ruc": "{{ruc}}"
+  }
+}

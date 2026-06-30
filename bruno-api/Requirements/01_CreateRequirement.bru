@@ -1,0 +1,30 @@
+meta {
+  name: Create Requirement
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/requirements
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Certificado de inscripción RNP",
+    "description": "Documento que acredite la inscripción vigente en el Registro Nacional de Proveedores"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const data = res.body.data;
+    bru.setVar('reqId', data.id);
+  }
+}

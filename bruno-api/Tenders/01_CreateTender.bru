@@ -1,0 +1,35 @@
+meta {
+  name: Create Tender
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/tenders
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Licitación Pública de Prueba - {{$isoTimestamp}}",
+    "description": "Descripción de la licitación de prueba para desarrollo y testing",
+    "rules": {
+      "weightExperience": 0.4,
+      "weightPrice": 0.6,
+      "maxYearsExperience": 10
+    }
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const data = res.body.data;
+    bru.setVar('tenderId', data.id);
+  }
+}

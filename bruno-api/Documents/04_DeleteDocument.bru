@@ -1,0 +1,16 @@
+meta {
+  name: Delete Document
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/documents/{{docId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

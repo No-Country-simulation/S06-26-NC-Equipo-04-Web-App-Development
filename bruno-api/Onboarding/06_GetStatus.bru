@@ -1,0 +1,15 @@
+meta {
+  name: Get Onboarding Status
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/onboarding/status/{{userId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

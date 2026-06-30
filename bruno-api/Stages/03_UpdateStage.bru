@@ -1,0 +1,25 @@
+meta {
+  name: Update Stage
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/stages/{{stageId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "stageType": "CONSULTAS",
+    "name": "Período de Consultas",
+    "startDate": "2026-07-16T00:00:00.000Z",
+    "endDate": "2026-07-25T23:59:59.000Z"
+  }
+}
