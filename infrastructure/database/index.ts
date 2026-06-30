@@ -11,7 +11,7 @@ const pool = new Pool({
   port: Number(process.env.DB_PORT)
 });
 
-async function verifyConnection(): Promise<void> {
+export async function verifyConnection(): Promise<void> {
   try {
     const client = await pool.connect();
     const res = await client.query("SELECT NOW()");
@@ -19,10 +19,10 @@ async function verifyConnection(): Promise<void> {
     client.release();
   } catch (error) {
     console.error("❌ Error connecting to the database: ", error);
+    if (process.env.NODE_ENV !== "test") {
+      process.exit(1);
+    }
   }
 };
-
-verifyConnection();
-process.exit(1);
 
 export default pool;

@@ -19,27 +19,27 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getById = asyncHandler(async (req: Request, res: Response) => {
-  const tender = await tendersService.getTenderById(req.params.id);
+  const tender = await tendersService.getTenderById(req.params.id as string);
   res.status(200).json({ success: true, data: tender });
 });
 
 export const update = asyncHandler(async (req: Request, res: Response) => {
-  const tender = await tendersService.updateTender(req.params.id, req.body, req.user!.id);
+  const tender = await tendersService.updateTender(req.params.id as string, req.body, req.user!.id);
   res.status(200).json({ success: true, data: tender, message: 'Licitación actualizada' });
 });
 
 export const publish = asyncHandler(async (req: Request, res: Response) => {
-  const tender = await tendersService.publishTender(req.params.id, req.user!.id);
+  const tender = await tendersService.publishTender(req.params.id as string, req.user!.id);
   res.status(200).json({ success: true, data: tender, message: 'Licitación publicada exitosamente' });
 });
 
 export const close = asyncHandler(async (req: Request, res: Response) => {
-  const tender = await tendersService.closeTender(req.params.id, req.user!.id);
+  const tender = await tendersService.closeTender(req.params.id as string, req.user!.id);
   res.status(200).json({ success: true, data: tender, message: 'Licitación cerrada' });
 });
 
 export const remove = asyncHandler(async (req: Request, res: Response) => {
-  await tendersService.deleteTender(req.params.id, req.user!.id);
+  await tendersService.deleteTender(req.params.id as string, req.user!.id);
   res.status(204).json({ success: true, message: 'Licitación eliminada' });
 });
 

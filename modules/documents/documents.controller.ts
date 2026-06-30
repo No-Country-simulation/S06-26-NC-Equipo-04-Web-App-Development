@@ -12,17 +12,17 @@ export const upload = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const documentType = (req.body.documentType as string) || 'ADICIONAL';
-  const doc = await documentsService.uploadDocument(req.params.id, file, documentType, req.user!.id);
+  const doc = await documentsService.uploadDocument(req.params.id as string, file, documentType, req.user!.id);
   res.status(201).json({ success: true, data: doc, message: 'Documento subido exitosamente' });
 });
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
-  const docs = await documentsService.getDocuments(req.params.id);
+  const docs = await documentsService.getDocuments(req.params.id as string);
   res.status(200).json({ success: true, data: docs });
 });
 
 export const download = asyncHandler(async (req: Request, res: Response) => {
-  const { doc, fullPath } = await documentsService.getDocumentById(req.params.docId);
+  const { doc, fullPath } = await documentsService.getDocumentById(req.params.docId as string);
 
   if (!fs.existsSync(fullPath)) {
     res.status(404).json({ success: false, error: 'Archivo no encontrado en el servidor' });
@@ -33,6 +33,6 @@ export const download = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const remove = asyncHandler(async (req: Request, res: Response) => {
-  await documentsService.deleteDocument(req.params.docId, req.user!.id);
+  await documentsService.deleteDocument(req.params.docId as string, req.user!.id);
   res.status(204).json({ success: true, message: 'Documento eliminado' });
 });

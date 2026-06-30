@@ -13,11 +13,11 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getById = asyncHandler(async (req: Request, res: Response) => {
-  const user = await usersService.getUserById(req.params.id);
+  const user = await usersService.getUserById(req.params.id as string);
   res.status(200).json({ success: true, data: user });
 });
 
 export const update = asyncHandler(async (req: Request, res: Response) => {
-  const user = await usersService.updateUser(req.params.id, req.body, req.user!.id);
+  const user = await usersService.updateUser(req.params.id as string, req.body, req.user!.id);
   res.status(200).json({ success: true, data: user, message: 'Usuario actualizado exitosamente' });
 });
