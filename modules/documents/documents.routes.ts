@@ -202,4 +202,9 @@ router.get('/download/:docId', documentsController.download);
  */
 router.delete('/:docId', authenticate, authorize('ENTE_PUBLICO'), documentsController.remove);
 
+// ─── Standalone documents router (mounted at /api/documents) ────
+export const standaloneDocumentsRouter = Router();
+
+standaloneDocumentsRouter.get('/:docId/download', documentsController.download);
+
 export default router;

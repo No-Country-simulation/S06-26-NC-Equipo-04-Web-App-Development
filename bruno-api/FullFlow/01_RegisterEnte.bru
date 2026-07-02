@@ -1,0 +1,36 @@
+meta {
+  name: 01 - Register Ente Público
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/auth/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Municipalidad de Prueba",
+    "email": "ente_{{$timestamp}}@test.com",
+    "ruc": "20123456789",
+    "dni": "12345678",
+    "password": "Test123456!",
+    "role": "ENTE_PUBLICO"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const data = res.body.data;
+    bru.setVar('token', data.token);
+    bru.setVar('userId', data.user.id);
+    bru.setVar('entName', data.user.name);
+    bru.setVar('entEmail', data.user.email);
+  }
+}

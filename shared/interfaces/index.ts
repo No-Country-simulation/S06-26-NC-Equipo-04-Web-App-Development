@@ -43,6 +43,7 @@ export interface AuthResponse {
 export interface Tender {
   id: string;
   title: string;
+  nomenclatura?: string;
   description?: string;
   state: TenderStatus;
   rules: TenderRules;
@@ -63,12 +64,14 @@ export interface TenderRules {
 
 export interface CreateTenderDTO {
   title: string;
+  nomenclatura?: string;
   description?: string;
   rules?: TenderRules;
 }
 
 export interface UpdateTenderDTO {
   title?: string;
+  nomenclatura?: string;
   description?: string;
   rules?: TenderRules;
 }

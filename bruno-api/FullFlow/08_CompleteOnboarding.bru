@@ -1,0 +1,16 @@
+meta {
+  name: 08 - Complete Onboarding
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{baseUrl}}/api/onboarding/complete
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

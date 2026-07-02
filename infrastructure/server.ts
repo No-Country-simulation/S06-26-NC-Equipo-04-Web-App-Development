@@ -12,6 +12,7 @@ import searchRoutes from '../modules/search/search.routes';
 import { proposalRouter } from '../modules/proposals/proposals.routes';
 import userRoutes from '../modules/users/users.routes';
 import auditRoutes from '../modules/audits/audits.routes';
+import { standaloneDocumentsRouter } from '../modules/documents/documents.routes';
 
 config();
 
@@ -59,6 +60,7 @@ app.use('/api/proposals', proposalRouter);
 app.use('/api/search', searchRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/audits', auditRoutes);
+app.use('/api/documents', standaloneDocumentsRouter);
 
 // Error handler (always last)
 app.use(errorHandler);

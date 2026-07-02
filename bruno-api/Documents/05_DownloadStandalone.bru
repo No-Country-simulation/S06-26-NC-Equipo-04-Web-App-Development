@@ -1,0 +1,15 @@
+meta {
+  name: Download Document (Standalone)
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/documents/{{docId}}/download
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

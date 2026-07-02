@@ -1,0 +1,22 @@
+meta {
+  name: 11 - Set Price
+  type: http
+  seq: 15
+}
+
+patch {
+  url: {{baseUrl}}/api/proposals/{{proposalId}}/price
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "price": 150000.00
+  }
+}

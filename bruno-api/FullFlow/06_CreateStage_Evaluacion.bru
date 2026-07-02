@@ -1,0 +1,25 @@
+meta {
+  name: 06 - Create Stage: Evaluación
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/stages
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "stageType": "EVALUACION",
+    "name": "Evaluación",
+    "startDate": "2027-01-01T00:00:00.000Z",
+    "endDate": "2027-01-15T23:59:59.000Z"
+  }
+}

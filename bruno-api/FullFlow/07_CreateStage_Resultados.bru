@@ -1,0 +1,25 @@
+meta {
+  name: 07 - Create Stage: Resultados
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/stages
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "stageType": "RESULTADOS",
+    "name": "Resultados",
+    "startDate": "2027-01-16T00:00:00.000Z",
+    "endDate": "2027-01-31T23:59:59.000Z"
+  }
+}

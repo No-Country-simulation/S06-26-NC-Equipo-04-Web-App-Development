@@ -1,0 +1,25 @@
+meta {
+  name: 03 - Create Stage: Convocatoria
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/stages
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "stageType": "CONVOCATORIA",
+    "name": "Convocatoria",
+    "startDate": "2026-07-01T00:00:00.000Z",
+    "endDate": "2026-07-10T23:59:59.000Z"
+  }
+}

@@ -13,6 +13,11 @@ const router = Router();
 
 const createValidation = [
   body('title').notEmpty().withMessage('El título es requerido'),
+  body('nomenclatura').optional().isString().withMessage('La nomenclatura debe ser un texto'),
+];
+
+const updateValidation = [
+  body('nomenclatura').optional().isString().withMessage('La nomenclatura debe ser un texto'),
 ];
 
 /**
@@ -229,7 +234,7 @@ router.get('/my', authenticate, authorize('ENTE_PUBLICO'), tendersController.myT
  *               $ref: '#/components/schemas/ApiErrorResponse'
  */
 router.get('/:id', tendersController.getById);
-router.put('/:id', authenticate, authorize('ENTE_PUBLICO'), tendersController.update);
+router.put('/:id', authenticate, authorize('ENTE_PUBLICO'), validate(updateValidation), tendersController.update);
 
 /**
  * @swagger

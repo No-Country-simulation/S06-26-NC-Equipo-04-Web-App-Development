@@ -13,6 +13,10 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getById = asyncHandler(async (req: Request, res: Response) => {
+  if (req.user!.id !== req.params.id) {
+    res.status(403).json({ success: false, error: 'No tienes permisos para ver este perfil' });
+    return;
+  }
   const user = await usersService.getUserById(req.params.id as string);
   res.status(200).json({ success: true, data: user });
 });

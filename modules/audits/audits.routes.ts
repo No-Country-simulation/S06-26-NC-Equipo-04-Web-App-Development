@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import * as auditsController from './audits.controller';
-import { authenticate } from '../../infrastructure/middleware/auth.middleware';
+import { authenticate, authorize } from '../../infrastructure/middleware/auth.middleware';
 import { validate } from '../../infrastructure/middleware/validate.middleware';
 
 const router = Router();
@@ -73,7 +73,7 @@ const auditValidation = [
  *       404:
  *         description: Propuesta no encontrada
  */
-router.get('/:proposalId', authenticate, auditsController.getByProposal);
-router.post('/:proposalId', authenticate, auditsController.run);
+router.get('/:proposalId', authenticate, authorize('ENTE_PUBLICO'), auditsController.getByProposal);
+router.post('/:proposalId', authenticate, authorize('ENTE_PUBLICO'), auditsController.run);
 
 export default router;

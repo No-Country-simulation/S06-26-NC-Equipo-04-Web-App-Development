@@ -6,7 +6,7 @@ meta {
 
 put {
   url: {{baseUrl}}/api/tenders/{{tenderId}}/proposals/{{proposalId}}/documents
-  body: form
+  body: multipart-form
   auth: none
 }
 
@@ -14,7 +14,7 @@ headers {
   Authorization: Bearer {{token}}
 }
 
-body:form {
-  file: @file(./sample.pdf)
+body:multipart-form {
+  file: @file(./test-proposal.pdf)
   requirementId: {{reqId}}
 }

@@ -1,0 +1,16 @@
+meta {
+  name: 06 - Publish Tender
+  type: http
+  seq: 10
+}
+
+patch {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/publish
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

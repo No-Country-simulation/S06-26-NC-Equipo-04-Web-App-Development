@@ -126,7 +126,7 @@ tenderProposalsRouter.get('/list', authenticate, authorize('ENTE_PUBLICO'), prop
  *       404:
  *         description: Propuesta no encontrada
  */
-tenderProposalsRouter.get('/:proposalId', authenticate, proposalsController.getById);
+tenderProposalsRouter.get('/:proposalId', authenticate, authorize('PROVEEDOR', 'ENTE_PUBLICO'), proposalsController.getById);
 
 /**
  * @swagger
@@ -360,7 +360,7 @@ topLevelRouter.get('/my-proposals', authenticate, authorize('PROVEEDOR'), propos
  *       404:
  *         description: Propuesta no encontrada
  */
-topLevelRouter.get('/:proposalId', authenticate, proposalsController.getById);
+topLevelRouter.get('/:proposalId', authenticate, authorize('PROVEEDOR', 'ENTE_PUBLICO'), proposalsController.getById);
 
 /**
  * @swagger
@@ -481,8 +481,8 @@ topLevelRouter.patch('/:proposalId/price', authenticate, authorize('PROVEEDOR'),
   proposalsController.updatePrice
 );
 
-topLevelRouter.get('/:proposalId/documents', authenticate, proposalsController.getDocuments);
-topLevelRouter.get('/:proposalId/documents/:docId/download', authenticate, proposalsController.downloadDocument);
+topLevelRouter.get('/:proposalId/documents', authenticate, authorize('PROVEEDOR', 'ENTE_PUBLICO'), proposalsController.getDocuments);
+topLevelRouter.get('/:proposalId/documents/:docId/download', authenticate, authorize('PROVEEDOR', 'ENTE_PUBLICO'), proposalsController.downloadDocument);
 
 export { tenderProposalsRouter, topLevelRouter as proposalRouter };
 export default tenderProposalsRouter;

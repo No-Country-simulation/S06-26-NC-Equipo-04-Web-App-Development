@@ -105,10 +105,20 @@ export async function evaluateProposals(tenderId: string, userId: string): Promi
     const experienceScore = parseFloat(p.experience_score) || 50;
     const totalScore = calculateFinalScore(experienceScore, priceScore, weightExperience, weightPrice);
 
+    // Determine new state based on score
+    let newState: string;
+    if (totalScore >= 70) {
+      newState = 'VALIDADO_COMPLETO';
+    } else if (totalScore >= 40) {
+      newState = 'VALIDADO_CON_ALERTAS';
+    } else {
+      newState = 'ENVIADO';
+    }
+
     await pool.query(
-      `UPDATE proposals SET score = $1, score_experience = $2, score_price = $3
-       WHERE id = $4`,
-      [totalScore, experienceScore, priceScore, p.proposal_id]
+      `UPDATE proposals SET score = $1, score_experience = $2, score_price = $3, state = $4
+       WHERE id = $5`,
+      [totalScore, experienceScore, priceScore, newState, p.proposal_id]
     );
 
     scoredProposals.push({

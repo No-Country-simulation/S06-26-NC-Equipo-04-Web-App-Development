@@ -1,0 +1,36 @@
+meta {
+  name: 05 - Upload Document
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/documents
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: multipart/form-data
+}
+
+script:pre-request {
+  const fs = require('fs');
+  const path = require('path');
+  const FormData = require('form-data');
+
+  const filePath = path.join(bru.cwd(), 'FullFlow', 'test-base.pdf');
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath), { filename: 'test-base.pdf' });
+  form.append('documentType', 'BASE');
+
+  req.setBody(form);
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const data = res.body.data;
+    bru.setVar('docId', data.id);
+  }
+}

@@ -76,7 +76,17 @@ export async function createProposal(tenderId: string, userId: string): Promise<
   return mapProposal(result.rows[0]);
 }
 
-export async function getProposalById(proposalId: string, userId?: string): Promise<Proposal> {
+export async function verifyProposalAccess(proposalId: string, userId: string, userRole: string): Promise<Proposal> {
+  const proposal = await getProposalById(proposalId);
+
+  if (userRole === 'PROVEEDOR' && proposal.providerId !== userId) {
+    throw new AppError('No tienes permisos para acceder a esta propuesta', 403);
+  }
+
+  return proposal;
+}
+
+export async function getProposalById(proposalId: string): Promise<Proposal> {
   const result = await pool.query(
     `SELECT p.*, u.name as provider_name
      FROM proposals p

@@ -6,7 +6,7 @@ meta {
 
 post {
   url: {{baseUrl}}/api/tenders/{{tenderId}}/documents
-  body: form
+  body: multipart-form
   auth: none
 }
 
@@ -14,8 +14,8 @@ headers {
   Authorization: Bearer {{token}}
 }
 
-body:form {
-  file: @file(./sample.pdf)
+body:multipart-form {
+  file: @file(./test-base.pdf)
   documentType: BASE
 }
 

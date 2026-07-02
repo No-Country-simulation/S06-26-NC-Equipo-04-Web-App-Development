@@ -1,0 +1,16 @@
+meta {
+  name: 14 - Evaluate
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/evaluate
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { asyncHandler } from '../../infrastructure/middleware/error.middleware';
 import * as onboardingService from './onboarding.service';
+import pool from '../../infrastructure/database/index';
 
 export const validateRuc = asyncHandler(async (req: Request, res: Response) => {
   const { ruc } = req.body;
@@ -28,15 +29,24 @@ export const checkRnp = asyncHandler(async (req: Request, res: Response) => {
 
 export const getStatus = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.params;
-  // En MVP, el estado se consulta contra el usuario en BD
-  // Por ahora retornamos un status genérico
+  const result = await pool.query('SELECT provider_status FROM users WHERE id = $1', [userId]);
+
+  if (result.rows.length === 0) {
+    res.status(404).json({ success: false, error: 'Usuario no encontrado' });
+    return;
+  }
+
+  const providerStatus = result.rows[0].provider_status;
+  const completed = providerStatus === 'VALIDADO';
+
   res.status(200).json({
     success: true,
     data: {
       userId,
-      completed: true,
+      providerStatus,
+      completed,
       steps: ['RUC', 'DNI', 'OSCE', 'RNP'],
-      allPassed: true,
+      allPassed: completed,
     },
   });
 });

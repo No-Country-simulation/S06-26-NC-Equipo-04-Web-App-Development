@@ -1,0 +1,16 @@
+meta {
+  name: 16 - Get Ranking
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/ranking
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}

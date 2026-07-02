@@ -1,0 +1,30 @@
+meta {
+  name: 04 - Create Requirement
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/requirements
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Certificado de Inscripción RNP",
+    "description": "Copia del certificado vigente de inscripción en el RNP"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    const data = res.body.data;
+    bru.setVar('reqId', data.id);
+  }
+}

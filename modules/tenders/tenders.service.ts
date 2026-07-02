@@ -18,6 +18,7 @@ function mapTender(row: any): Tender {
   return {
     id: row.id,
     title: row.title,
+    nomenclatura: row.nomenclatura || undefined,
     description: row.description || undefined,
     state: row.state,
     rules: typeof row.rules === 'string' ? JSON.parse(row.rules) : row.rules,
@@ -31,10 +32,10 @@ export async function createTender(dto: CreateTenderDTO, userId: string): Promis
   const rules = { ...DEFAULT_RULES, ...dto.rules };
 
   const result = await pool.query(
-    `INSERT INTO tenders (title, description, state, rules, state_entity_id)
-     VALUES ($1, $2, 'BORRADOR', $3, $4)
+    `INSERT INTO tenders (title, nomenclatura, description, state, rules, state_entity_id)
+     VALUES ($1, $2, $3, 'BORRADOR', $4, $5)
      RETURNING *`,
-    [dto.title, dto.description || '', JSON.stringify(rules), userId]
+    [dto.title, dto.nomenclatura || null, dto.description || '', JSON.stringify(rules), userId]
   );
 
   return mapTender(result.rows[0]);
@@ -133,6 +134,10 @@ export async function updateTender(id: string, dto: UpdateTenderDTO, userId: str
   if (dto.title !== undefined) {
     fields.push(`title = $${paramIndex++}`);
     params.push(dto.title);
+  }
+  if (dto.nomenclatura !== undefined) {
+    fields.push(`nomenclatura = $${paramIndex++}`);
+    params.push(dto.nomenclatura);
   }
   if (dto.description !== undefined) {
     fields.push(`description = $${paramIndex++}`);

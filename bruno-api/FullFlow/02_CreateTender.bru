@@ -1,7 +1,7 @@
 meta {
-  name: Create Tender
+  name: 02 - Create Tender
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
@@ -17,9 +17,9 @@ headers {
 
 body:json {
   {
-    "title": "Licitación Pública de Prueba - {{$isoTimestamp}}",
-    "nomenclatura": "LP-{{$isoTimestamp}}",
-    "description": "Descripción de la licitación de prueba para desarrollo y testing",
+    "title": "Servicio de Consultoría - {{$timestamp}}",
+    "nomenclatura": "SC-{{$timestamp}}",
+    "description": "Servicio de consultoría para evaluación de proyectos públicos",
     "rules": {
       "weightExperience": 0.4,
       "weightPrice": 0.6,

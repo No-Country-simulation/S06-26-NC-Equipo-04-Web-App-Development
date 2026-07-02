@@ -8,7 +8,11 @@ export const create = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getById = asyncHandler(async (req: Request, res: Response) => {
-  const proposal = await proposalsService.getProposalById(req.params.proposalId as string as string, req.user?.id);
+  const proposal = await proposalsService.verifyProposalAccess(
+    req.params.proposalId as string,
+    req.user!.id,
+    req.user!.role
+  );
   res.status(200).json({ success: true, data: proposal });
 });
 
@@ -55,11 +59,21 @@ export const myProposals = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getDocuments = asyncHandler(async (req: Request, res: Response) => {
+  await proposalsService.verifyProposalAccess(
+    req.params.proposalId as string,
+    req.user!.id,
+    req.user!.role
+  );
   const docs = await proposalsService.getProposalDocuments(req.params.proposalId as string);
   res.status(200).json({ success: true, data: docs });
 });
 
 export const downloadDocument = asyncHandler(async (req: Request, res: Response) => {
   const { doc, fullPath } = await proposalsService.getProposalDocumentById(req.params.docId as string);
+  await proposalsService.verifyProposalAccess(
+    doc.proposal_id,
+    req.user!.id,
+    req.user!.role
+  );
   res.download(fullPath, doc.file_name);
 });

@@ -1,0 +1,29 @@
+meta {
+  name: 10 - Attach Document
+  type: http
+  seq: 14
+}
+
+put {
+  url: {{baseUrl}}/api/tenders/{{tenderId}}/proposals/{{proposalId}}/documents
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: multipart/form-data
+}
+
+script:pre-request {
+  const fs = require('fs');
+  const path = require('path');
+  const FormData = require('form-data');
+
+  const filePath = path.join(bru.cwd(), 'FullFlow', 'test-proposal.pdf');
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath), { filename: 'test-proposal.pdf' });
+  form.append('requirementId', bru.getVar('reqId'));
+
+  req.setBody(form);
+}

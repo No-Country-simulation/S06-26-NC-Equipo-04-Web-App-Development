@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import * as usersController from './users.controller';
-import { authenticate } from '../../infrastructure/middleware/auth.middleware';
+import { authenticate, authorize } from '../../infrastructure/middleware/auth.middleware';
 import { validate } from '../../infrastructure/middleware/validate.middleware';
 
 const router = Router();
@@ -63,7 +63,7 @@ const updateValidation = [
  *       401:
  *         description: No autenticado
  */
-router.get('/', authenticate, usersController.list);
+router.get('/', authenticate, authorize('ENTE_PUBLICO'), usersController.list);
 
 /**
  * @swagger
@@ -145,7 +145,7 @@ router.get('/', authenticate, usersController.list);
  *       404:
  *         description: Usuario no encontrado
  */
-router.get('/:id', authenticate, usersController.getById);
+router.get('/:id', authenticate, usersController.getById); // Self-access validated in controller
 router.patch('/:id', authenticate, validate(updateValidation), usersController.update);
 
 export default router;

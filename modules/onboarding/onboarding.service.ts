@@ -78,7 +78,7 @@ export async function validateRuc(ruc: string): Promise<RucResult> {
     razonSocial: data.razonSocial,
     estado: data.estado,
     condicion: data.condicion,
-    ...(data.estado !== 'ACTIVO' && { error: 'RUC no activo. Regularice su situación ante SUNAT.' }),
+    ...(data.estado !== 'ACTIVO' && { error: 'RUC no activo o no habido. Regularice su situación ante SUNAT.' }),
   };
 }
 
@@ -120,7 +120,12 @@ export async function checkRnp(ruc: string): Promise<RnpResult> {
   if (!data) {
     return { inscrito: true, cmc: 250000, categoria: 'PROVEEDOR_SERVICIOS' };
   }
-  return data;
+  return {
+    inscrito: data.inscrito,
+    cmc: data.cmc,
+    categoria: data.categoria,
+    ...(data.inscrito === false && { error: 'Regístrese o regularice su situación en el RNP.' }),
+  };
 }
 
 export async function runFullOnboarding(ruc: string, dni: string): Promise<OnboardingResult> {

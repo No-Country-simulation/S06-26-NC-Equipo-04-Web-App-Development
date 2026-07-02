@@ -33,3 +33,14 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+node_modules/
+dist/
+build/
+coverage/
+.next/
+out/
+.cache/
+tmp/
+logs/
+*.log

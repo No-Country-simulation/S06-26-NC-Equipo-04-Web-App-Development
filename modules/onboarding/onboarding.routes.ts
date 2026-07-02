@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import * as onboardingController from './onboarding.controller';
 import { validate } from '../../infrastructure/middleware/validate.middleware';
-import { authenticate } from '../../infrastructure/middleware/auth.middleware';
+import { authenticate, authorize } from '../../infrastructure/middleware/auth.middleware';
 
 const router = Router();
 
@@ -221,6 +221,6 @@ router.post('/full', validate([...rucValidation, ...dniValidation]), onboardingC
  *               $ref: '#/components/schemas/ApiErrorResponse'
  */
 router.get('/status/:userId', onboardingController.getStatus);
-router.post('/complete', authenticate, onboardingController.completeOnboarding);
+router.post('/complete', authenticate, authorize('PROVEEDOR'), onboardingController.completeOnboarding);
 
 export default router;
