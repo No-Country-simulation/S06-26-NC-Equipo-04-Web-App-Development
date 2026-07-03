@@ -12,10 +12,9 @@ const DATABASE_URL =
 async function runMigrations() {
   const poolConfig: any = {
     connectionString: DATABASE_URL,
-    ssl: DATABASE_URL.includes("supabase")
+    ssl: DATABASE_URL.includes("supabase") || DATABASE_URL.includes("railway")
       ? { rejectUnauthorized: false }
       : false,
-    family: 4,
   };
   const pool = new Pool(poolConfig);
 
