@@ -17,7 +17,7 @@ import { standaloneDocumentsRouter } from '../modules/documents/documents.routes
 config();
 
 const app: Express = express();
-const PORT = process.env.SERVER_PORT || 8080;
+const PORT = process.env.PORT || process.env.SERVER_PORT || 8080;
 
 // Global middlewares
 app.use(corsMiddleware);

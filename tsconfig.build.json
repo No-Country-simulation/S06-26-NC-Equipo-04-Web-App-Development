@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   },
   "include": [
     "infrastructure/**/*",
@@ -10,5 +12,10 @@
     "core/**/*",
     "shared/**/*",
     "scripts/**/*"
+  ],
+  "exclude": [
+    "**/__tests__/**",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }
