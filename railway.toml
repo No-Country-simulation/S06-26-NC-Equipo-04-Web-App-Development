@@ -7,4 +7,4 @@ startCommand = "pnpm run start"
 healthcheckPath = "/api/health"
 
 [service]
-ports = [[port = 8080, protocol = "TCP"]]
+ports = [{ port = 8080, protocol = "TCP" }]
