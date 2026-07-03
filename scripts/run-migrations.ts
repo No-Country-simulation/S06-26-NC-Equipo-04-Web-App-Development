@@ -10,13 +10,14 @@ const DATABASE_URL =
   `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 async function runMigrations() {
-  const pool = new Pool({
+  const poolConfig: any = {
     connectionString: DATABASE_URL,
     ssl: DATABASE_URL.includes("supabase")
       ? { rejectUnauthorized: false }
       : false,
     family: 4,
-  } as any);
+  };
+  const pool = new Pool(poolConfig);
 
   const schemaPath = path.join(
     process.cwd(),
