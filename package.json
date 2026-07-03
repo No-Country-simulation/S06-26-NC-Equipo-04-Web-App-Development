@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },
+  "packageManager": "pnpm@10.9.0",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=10.0.0"
