@@ -15,6 +15,7 @@ async function runMigrations() {
     ssl: DATABASE_URL.includes("supabase")
       ? { rejectUnauthorized: false }
       : false,
+    family: 4,
   });
 
   const schemaPath = path.join(
