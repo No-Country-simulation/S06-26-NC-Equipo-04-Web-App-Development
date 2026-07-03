@@ -1,39 +1,37 @@
-import { config } from 'dotenv';
-import { Pool } from 'pg';
-import fs from 'fs/promises';
-import path from 'path';
+import { config } from "dotenv";
+import { Pool } from "pg";
+import fs from "fs/promises";
+import path from "path";
 
 config();
 
+const DATABASE_URL =
+  process.env.DATABASE_URL ||
+  `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
 async function runMigrations() {
   const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT),
+    connectionString: DATABASE_URL,
+    ssl: DATABASE_URL.includes("supabase")
+      ? { rejectUnauthorized: false }
+      : false,
   });
 
-  const migrationsDir = path.join(process.cwd(), 'infrastructure', 'database', 'migrations');
-  
+  const schemaPath = path.join(
+    process.cwd(),
+    "infrastructure",
+    "database",
+    "schema.sql"
+  );
+
   try {
-    const files = await fs.readdir(migrationsDir);
-    const sqlFiles = files.filter(f => f.endsWith('.sql')).sort();
-
-    for (const file of sqlFiles) {
-      console.log(`📦 Running migration: ${file}`);
-      const sql = await fs.readFile(path.join(migrationsDir, file), 'utf-8');
-      try {
-        await pool.query(sql);
-        console.log(`✅ Migration ${file} completed`);
-      } catch (error: any) {
-        console.error(`❌ Migration ${file} failed:`, error.message);
-      }
-    }
-
-    console.log('🎉 All migrations executed');
-  } catch (error) {
-    console.error('❌ Error running migrations:', error);
+    console.log(`📦 Running schema: ${schemaPath}`);
+    const sql = await fs.readFile(schemaPath, "utf-8");
+    await pool.query(sql);
+    console.log("✅ Schema migration completed successfully");
+  } catch (error: any) {
+    console.error("❌ Migration failed:", error.message);
+    process.exit(1);
   } finally {
     await pool.end();
   }

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./dist"
+  },
+  "include": [
+    "infrastructure/**/*",
+    "modules/**/*",
+    "core/**/*",
+    "shared/**/*",
+    "scripts/**/*"
+  ]
+}

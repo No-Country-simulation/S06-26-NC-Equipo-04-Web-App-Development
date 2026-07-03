@@ -3,13 +3,22 @@ import { Pool } from "pg";
 
 config();
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: Number(process.env.DB_PORT)
-});
+const isProduction = process.env.NODE_ENV === "production";
+
+const pool = new Pool(
+  process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: isProduction ? { rejectUnauthorized: false } : false,
+      }
+    : {
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB_NAME,
+        password: process.env.DB_PASSWORD,
+        port: Number(process.env.DB_PORT),
+      }
+);
 
 export async function verifyConnection(): Promise<void> {
   try {
@@ -19,9 +28,10 @@ export async function verifyConnection(): Promise<void> {
     client.release();
   } catch (error) {
     console.error("❌ Error connecting to the database: ", error);
-    if (process.env.NODE_ENV !== "test") {
-      process.exit(1);
+    if (!isProduction) {
+      throw error;
     }
+    console.warn("⚠️ Continuing without database — some features will be unavailable");
   }
 };
 

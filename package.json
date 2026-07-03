@@ -2,14 +2,19 @@
   "name": "s02-26-equipo-03",
   "version": "1.0.0",
   "description": "Plataforma GovTech para Licitaciones Peruanas",
-  "main": "infrastructure/server.ts",
+  "main": "dist/infrastructure/server.js",
   "scripts": {
     "dev": "tsx watch infrastructure/server.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/infrastructure/server.js",
+    "migrate": "tsx scripts/run-migrations.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
   },
   "keywords": ["govtech", "rfp", "peru", "backend"],
   "type": "module",
