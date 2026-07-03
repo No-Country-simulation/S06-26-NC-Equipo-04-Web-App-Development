@@ -16,7 +16,7 @@ async function runMigrations() {
       ? { rejectUnauthorized: false }
       : false,
     family: 4,
-  });
+  } as any);
 
   const schemaPath = path.join(
     process.cwd(),
